@@ -1,0 +1,97 @@
+-- Problema: Rank Scores.
+
+-- =========================================================
+-- Tabla: Scores
+--
+-- +-------------+---------+
+-- | Nombre Campo| Tipo    |
+-- +-------------+---------+
+-- | id          | int     |
+-- | score       | decimal |
+-- +-------------+---------+
+--
+-- id es la llave primaria (valores únicos) de esta tabla.
+--
+-- Cada fila de esta tabla contiene la puntuación
+-- de un juego.
+--
+-- score es un valor decimal con dos cifras decimales.
+-- =========================================================
+
+-- =========================================================
+-- Instrucción:
+--
+-- Escriba una consulta SQL para encontrar el ranking
+-- de las puntuaciones.
+--
+-- El ranking debe calcularse siguiendo estas reglas:
+--
+-- 1. Las puntuaciones deben ordenarse
+--    de mayor a menor.
+--
+-- 2. Si dos puntuaciones son iguales,
+--    ambas deben tener el mismo ranking.
+--
+-- 3. Después de un empate,
+--    el siguiente ranking debe ser el siguiente número
+--    consecutivo.
+--
+--    Es decir, NO deben existir huecos entre rankings.
+-- =========================================================
+
+-- =========================================================
+-- El resultado debe devolverse ordenado
+-- por score en orden descendente.
+-- =========================================================
+
+-- =========================================================
+-- Ejemplo:
+--
+-- Entrada:
+--
+-- Tabla Scores
+--
+-- +----+-------+
+-- | id | score |
+-- +----+-------+
+-- | 1  | 3.50  |
+-- | 2  | 3.65  |
+-- | 3  | 4.00  |
+-- | 4  | 3.85  |
+-- | 5  | 4.00  |
+-- | 6  | 3.65  |
+-- +----+-------+
+--
+--
+-- Salida esperada:
+--
+-- +-------+------+
+-- | score | rank |
+-- +-------+------+
+-- | 4.00  | 1    |
+-- | 4.00  | 1    |
+-- | 3.85  | 2    |
+-- | 3.65  | 3    |
+-- | 3.65  | 3    |
+-- | 3.50  | 4    |
+-- +-------+------+
+--
+--
+-- Explicación:
+--
+-- La puntuación más alta es 4.00,
+-- por lo tanto tiene ranking 1.
+--
+-- Como existen dos valores 4.00,
+-- ambos reciben el mismo ranking.
+--
+-- La siguiente puntuación distinta es 3.85,
+-- y recibe ranking 2.
+--
+-- No existen huecos entre rankings.
+-- =========================================================
+
+SELECT
+    score,
+    DENSE_RANK() OVER (ORDER BY score DESC) AS `rank`
+FROM Scores;
